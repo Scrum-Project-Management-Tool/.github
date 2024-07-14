@@ -71,6 +71,7 @@ This section provides a detailed explanation of the data model for a Scrum Proje
 | taskId     | string | Foreign Key to the tasks table          |
 | sprintId   | string | Foreign Key to the sprints table        |
 | issueId    | string | Foreign Key to the issues table         |
+| refreshToken | string | Token used to refresh user session    |
 
 ### Projects
 
