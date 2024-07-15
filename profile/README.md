@@ -50,154 +50,133 @@ This organization contains three repositories:
   
   ## [Data Model](https://app.eraser.io/workspace/R5oEkooQ06f92gM4qVXJ?origin=share) 
 
-This section provides a detailed explanation of the data model for a Scrum Project Management Tool. Each table in the model is described, including its fields and relationships with other tables.
+This document provides an in-depth description of the data model for a Scrum Project Management Tool. The model includes several entities: user, project, backlog, sprint, userStory, task, and issue. Each entity and the relationships between them are detailed below.
 
-## Tables
+## Entities
+### User
+Represents a user within the system.
 
-### Users
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| username | string | User's username |
+| email | string | User's email |
+| password | string | User's password |
+| projectsId | string | ID of the projects the user is part of |
+| refreshToken | string | Token for refreshing authentication |
+### Project
+Represents a project within the system.
 
-- **Icon:** user
-- **Color:** blue
-
-| Field      | Type   | Description                             |
-|------------|--------|-----------------------------------------|
-| id         | string | Primary Key                             |
-| username   | string | Username of the user                    |
-| email      | string | Email address of the user               |
-| password   | string | Encrypted password                      |
-| projectId  | string | Foreign Key to the projects table       |
-| backlogId  | string | Foreign Key to the backlog table        |
-| userStoryId| string | Foreign Key to the userStories table    |
-| taskId     | string | Foreign Key to the tasks table          |
-| sprintId   | string | Foreign Key to the sprints table        |
-| issueId    | string | Foreign Key to the issues table         |
-| refreshToken | string | Token used to refresh user session    |
-
-### Projects
-
-- **Icon:** folder
-- **Color:** green
-
-| Field        | Type   | Description                             |
-|--------------|--------|-----------------------------------------|
-| id           | string | Primary Key                             |
-| assignee     | string | Foreign Key to the users table (assignee)|
-| title        | string | Title of the project                    |
-| description  | string | Description of the project              |
-| visibility   | string | Project visibility (e.g., public, private) |
-| backlogId    | string | Foreign Key to the backlog table        |
-| userStoriesId| string | Foreign Key to the userStories table    |
-| taskId       | string | Foreign Key to the tasks table          |
-
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| assignees | string | ID of users assigned to the project |
+| title | string | Title of the project |
+| description | string | Description of the project |
+| visibility | string | Visibility status of the project |
+| backlogId | string | ID of the backlog associated with the project |
+| sprintsId | string | ID of the sprints associated with the project |
+| issuesId | string | ID of the issues associated with the project |
 ### Backlog
+Represents a backlog within a project.
 
-- **Icon:** skip-back
-- **Color:** yellow
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| userStoriesId | string | ID of user stories in the backlog |
+### Sprint
+Represents a sprint within a project.
 
-| Field        | Type   | Description                             |
-|--------------|--------|-----------------------------------------|
-| id           | string | Primary Key                             |
-| userStoriesId| string | Foreign Key to the userStories table    |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| name | string | Name of the sprint |
+| startDate | Date | Start date of the sprint |
+| endDate | Date | End date of the sprint |
+| userStoriesId | string | ID of user stories in the sprint |
+### User Story
+Represents a user story within a sprint or backlog.
 
-### User Stories
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| subject | string | Subject of the user story |
+| tag | string | Tag for categorizing the user story |
+| description | string | Description of the user story |
+| attatchement | string | Attachment related to the user story |
+| status | string | Status of the user story |
+| assignees | string | ID of users assigned to the user story |
+| tasksId | string | ID of tasks related to the user story |
+### Task
+Represents a task within a user story.
 
-- **Icon:** users
-- **Color:** purple
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| subject | string | Subject of the task |
+| status | string | Status of the task |
+| assignee | string | ID of the user assigned to the task |
+### Issue
+Represents an issue within a project.
 
-| Field        | Type   | Description                             |
-|--------------|--------|-----------------------------------------|
-| id           | string | Primary Key                             |
-| subject      | string | Subject of the user story               |
-| tag          | string | Tag for categorizing user stories       |
-| description  | string | Detailed description of the user story  |
-| attachment   | string | Link to any attached file               |
-| status       | string | Current status of the user story        |
-| assignee     | string | Foreign Key to the users table          |
-| taskId       | string | Foreign Key to the tasks table          |
-
-### Tasks
-
-- **Icon:** file
-- **Color:** red
-
-| Field      | Type   | Description                             |
-|------------|--------|-----------------------------------------|
-| id         | string | Primary Key                             |
-| subject    | string | Subject of the task                     |
-| status     | string | Current status of the task              |
-| assignee   | string | Foreign Key to the users table          |
-
-### Sprints
-
-- **Icon:** timer
-- **Color:** pink
-
-| Field        | Type | Description                             |
-|--------------|------|-----------------------------------------|
-| id           | string | Primary Key                             |
-| name         | string | Name of the sprint                      |
-| startDate    | Date   | Start date of the sprint                |
-| endDate      | Date   | End date of the sprint                  |
-| userStoriesId| string | Foreign Key to the userStories table    |
-
-### Issues
-
-- **Icon:** crosshair
-- **Color:** white
-
-| Field        | Type   | Description                             |
-|--------------|--------|-----------------------------------------|
-| id           | string | Primary Key                             |
-| subject      | string | Subject of the issue                    |
-| description  | string | Detailed description of the issue       |
-| tag          | string | Tag for categorizing issues             |
-| attachment   | string | Link to any attached file               |
-| status       | string | Current status of the issue             |
-| assignee     | string | Foreign Key to the users table          |
-| type         | string | Type of issue (e.g., bug, task, improvement) |
-| severity     | string | Severity level of the issue             |
-| priority     | string | Priority level of the issue             |
-
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| _id | objectId | Primary key, unique identifier |
+| subject | string | Subject of the issue |
+| description | string | Description of the issue |
+| tag | string | Tag for categorizing the issue |
+| attachement | string | Attachment related to the issue |
+| status | string | Status of the issue |
+| assignee | string | ID of user assigned to the issue |
+| type | string | Type of the issue (e.g., bug, enhancement) |
+| severity | string | Severity level of the issue |
+| priority | string | Priority level of the issue |
 ## Relationships
+### User - Project
+A user can be part of multiple projects.
 
-### Users Table Relationships
+- `user.projectsId`  > `project._id` 
+### Project - Assignees
+Multiple users can be assigned to a single project.
 
-- `projectId` > `projects.id`: Each user can be associated with a project.
-- `backlogId` > `backlog.id`: Each user can be associated with a backlog.
-- `userStoryId` > `userStories.id`: Each user can be associated with a user story.
-- `taskId` > `tasks.id`: Each user can be associated with a task.
-- `sprintId` > `sprints.id`: Each user can be associated with a sprint.
-- `issueId` > `issues.id`: Each user can be associated with an issue.
+- `project.assignees`  > `user._id` 
+### Project - Backlog
+A project can have one backlog.
 
-### Projects Table Relationships
+- `project.backlogId`  > `backlog._id` 
+### Project - Sprints
+A project can have multiple sprints.
 
-- `assignee` > `users.id`: Each project has an assignee (a user).
-- `backlogId` > `backlog.id`: Each project has a backlog.
-- `userStoriesId` > `userStories.id`: Each project contains user stories.
-- `taskId` > `tasks.id`: Each project contains tasks.
+- `project.sprintsId`  > `sprint._id` 
+### Project - Issues
+A project can have multiple issues.
 
-### Backlog Table Relationships
+- `project.issuesId`  > `issue._id` 
+### Backlog - User Stories
+A backlog can contain multiple user stories.
 
-- `userStoriesId` > `userStories.id`: A backlog contains user stories.
+- `backlog.userStoriesId`  > `userStory._id` 
+### Sprint - User Stories
+A sprint can contain multiple user stories.
 
-### User Stories Table Relationships
+- `sprint.userStoriesId`  > `userStory._id` 
+### User Story - Assignees
+Multiple users can be assigned to a single user story.
 
-- `assignee` > `users.id`: Each user story is assigned to a user.
-- `taskId` > `tasks.id`: Each user story can have associated tasks.
+- `userStory.assignees`  > `user._id` 
+### User Story - Tasks
+A user story can contain multiple tasks.
 
-### Tasks Table Relationships
+- `userStory.tasksId`  > `task._id` 
+### Task - Assignee
+A task is assigned to a single user.
 
-- `assignee` > `users.id`: Each task is assigned to a user.
+- `task.assignee`  > `user._id` 
+### Issue - Assignees
+Multiple users can be assigned to a single issue.
 
-### Sprints Table Relationships
+- `issue.assignees`  > `user._id` 
 
-- `userStoriesId` > `userStories.id`: Each sprint contains user stories.
-
-### Issues Table Relationships
-
-- `assignee` > `users.id`: Each issue is assigned to a user.
-
-This data model provides a structured approach to managing Scrum projects, allowing for clear relationships between users, projects, backlogs, user stories, tasks, sprints, and issues.
   
 </details>
 
@@ -213,7 +192,7 @@ This data model provides a structured approach to managing Scrum projects, allow
 ### Frontend Repository: Frontend-Scrum-Project-Management-Tool
 
 #### Technologies Used
-- Angular.js
+- React.js
 
 #### Getting Started
 
@@ -234,7 +213,7 @@ This data model provides a structured approach to managing Scrum projects, allow
 
 4. **Start the Development Server**
    ```sh
-   ng serve
+   npm run dev
    ```
 
 5. **Create a Branch**
@@ -275,7 +254,7 @@ This data model provides a structured approach to managing Scrum projects, allow
 
 #### Code Style Guidelines
 
-- Follow the Angular style guide.
+- Follow the React style guide.
 - Ensure your code is linted and formatted according to the project's settings.
 
 #### Reporting Issues
