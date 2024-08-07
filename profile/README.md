@@ -41,7 +41,24 @@ This organization contains three repositories:
 
 1. **Scrum-Project-Management-Tool**: This repository contains the backend of the project, handling all server-side operations, data management, and API endpoints.
 2. **Frontend-Scrum-Project-Management-Tool**: This repository contains the frontend of the project, providing a user-friendly interface for interacting with the tool.
-3. **.github**: This repository includes configuration files, workflows, issue templates, and other GitHub-specific settings that enhance collaboration and project management within the organization.  
+3. **.github**: This repository includes configuration files, workflows, issue templates, and other GitHub-specific settings that enhance collaboration and project management within the organization.
+
+### Maintain this folder structure on your local machine:
+
+```
+Scrum-Project-Management-Tool/
+├── Scrum-Project-Management-Tool/
+│   ├── Dockerfile
+│   ├── src/
+│   ├── package.json
+│   ├── ...
+├── Frontend-Scrum-Project-Management-Tool/
+│   ├── Dockerfile
+│   ├── src/
+│   ├── package.json
+│   ├── ...
+├── docker-compose.yml
+```
   
 </details>
 
